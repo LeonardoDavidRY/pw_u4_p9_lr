@@ -1,15 +1,15 @@
 <template>
   <div class="about">
-    <TablaEstudiantes />
+    <AboutComponent />
   </div>
 </template>
 
 <script>
-import TablaEstudiantes from "@/components/TablaEstudiantes.vue";
+import AboutComponent from '@/components/AboutComponent.vue';
 export default {
   name: "AboutView",
   components: {
-    TablaEstudiantes,
+    AboutComponent,
   },
 };
 </script>
