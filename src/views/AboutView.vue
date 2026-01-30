@@ -1,5 +1,15 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <TablaEstudiantes />
   </div>
 </template>
+
+<script>
+import TablaEstudiantes from "@/components/TablaEstudiantes.vue";
+export default {
+  name: "AboutView",
+  components: {
+    TablaEstudiantes,
+  },
+};
+</script>
