@@ -12,8 +12,8 @@
 
 <script>
 import FormularioEstudiante from '@/components/FormularioEstudiante.vue';
-import { getToken } from "@/clients/AuthorizationClient";
-import { setToken } from "@/clients/MatriculaClient";
+import { getTokenFachada } from "@/clients/AuthorizationClient";
+import { setTokenFachada } from "@/clients/MatriculaClient";
 
 export default {
   name: 'FormularioEstudianteView',
@@ -28,11 +28,10 @@ export default {
   },
   async mounted() {
     try {
-
-      const tokenData = await getToken("leo", "1234");
+      const tokenData = await getTokenFachada("admin", "1234");
       console.log("Token obtenido:", tokenData);
       
-      setToken(tokenData.accessToken);
+      setTokenFachada(tokenData.accessToken);
       this.cargando = false;
     } catch (error) {
       console.error("Error al obtener el token:", error);

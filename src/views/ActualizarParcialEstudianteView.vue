@@ -5,13 +5,29 @@
 </template>
 
 <script>
-import ActualizarParcialEstudiante from '@/components/ActualizarParcialEstudiante.vue';
+import { getTokenFachada } from "@/clients/AuthorizationClient";
+import { setTokenFachada } from "@/clients/MatriculaClient";
+import ActualizarParcialEstudiante from "@/components/ActualizarParcialEstudiante.vue";
 
 export default {
-  name: 'ActualizarParcialEstudianteView',
+  name: "ActualizarParcialEstudianteView",
   components: {
-    ActualizarParcialEstudiante
-  }
+    ActualizarParcialEstudiante,
+  },
+  async mounted() {
+    try {
+      const tokenData = await getTokenFachada("admin", "1234");
+      console.log("Token obtenido:", tokenData);
+
+      setTokenFachada(tokenData.accessToken);
+      this.cargando = false;
+    } catch (error) {
+      console.error("Error al obtener el token:", error);
+      this.error =
+        "Error de autenticación. Por favor, verifica las credenciales.";
+      this.cargando = false;
+    }
+  },
 };
 </script>
 

@@ -6,7 +6,7 @@ let TOKEN = "";
 const URL = "http://localhost:8081/matricula/api/v1.0/estudiantes";
 
 // Función para establecer el token
-export const setToken = (token) => {
+export const setTokenFachada = (token) => {
   TOKEN = token;
 };
 
