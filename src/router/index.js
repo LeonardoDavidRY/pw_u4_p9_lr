@@ -5,43 +5,65 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView
+    component: HomeView,
+    meta:{
+      requiereAutorizacion: false,
+      esPublica: true
+    }
   },
   {
     path: '/about',
     name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue'),
+    meta:{
+      requiereAutorizacion: false,
+      esPublica: true
+    }
   },
   {
     path: '/tabla-estudiantes',
     name: 'tabla-estudiantes',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "tabla-estudiantes" */ '../views/TablaEstudiantesView.vue')
+    component: () => import(/* webpackChunkName: "tabla-estudiantes" */ '../views/TablaEstudiantesView.vue'),
+    meta:{
+      requiereAutorizacion: true,
+      esPublica: false
+    }
   },
   {
     path: '/formulario-estudiante',
     name: 'formulario-estudiante',
-    component: () => import(/* webpackChunkName: "formulario-estudiante" */ '../views/FormularioEstudianteView.vue')
+    component: () => import(/* webpackChunkName: "formulario-estudiante" */ '../views/FormularioEstudianteView.vue'),
+    meta:{
+      requiereAutorizacion: true,
+      esPublica: false
+    }
   },
   {
     path: '/actualizar-estudiante/:id',
     name: 'actualizar-estudiante',
-    component: () => import(/* webpackChunkName: "actualizar-estudiante" */ '../views/ActualizarEstudianteView.vue')
+    component: () => import(/* webpackChunkName: "actualizar-estudiante" */ '../views/ActualizarEstudianteView.vue'),
+    meta:{
+      requiereAutorizacion: true,
+      esPublica: false
+    }
   },
   {
     path: '/actualizar-parcial-estudiante/:id',
     name: 'actualizar-parcial-estudiante',
-    component: () => import(/* webpackChunkName: "actualizar-parcial-estudiante" */ '../views/ActualizarParcialEstudianteView.vue')
+    component: () => import(/* webpackChunkName: "actualizar-parcial-estudiante" */ '../views/ActualizarParcialEstudianteView.vue'),
+    meta:{
+      requiereAutorizacion: true,
+      esPublica: false
+    }
   },
   {
     path: '/borrar-estudiante/:id',
     name: 'borrar-estudiante',
-    component: () => import(/* webpackChunkName: "borrar-estudiante" */ '../views/BorrarEstudianteView.vue')
+    component: () => import(/* webpackChunkName: "borrar-estudiante" */ '../views/BorrarEstudianteView.vue'),
+    meta:{
+      requiereAutorizacion: true,
+      esPublica: false
+    }
   }
 ]
 
@@ -49,5 +71,17 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+/* Configuracion del Guardian */
+router.beforeEach((to, from, next) => {
+  if(to.meta.requiereAutorizacion){
+    /* Le envio a una pagina de login*/
+    console.log("Deririgiendo a Login");
+  }else{
+    /*Le dejo que pase sin validaciones */
+    console.log("Pase Libre");
+    next();
+
+  }
+});
 
 export default router
