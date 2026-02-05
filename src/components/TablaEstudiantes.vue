@@ -159,10 +159,6 @@ export default {
     irBorrar(id) {
       this.$router.push({ name: 'borrar-estudiante', params: { id } });
     }
-  },
-  mounted() {
-    // Cargar estudiantes automáticamente al montar el componente
-    this.cargarTodos();
   }
 }
 </script>

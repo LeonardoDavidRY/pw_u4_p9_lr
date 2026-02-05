@@ -1,8 +1,23 @@
 import axios from "axios";
 
+// Variable para almacenar el token dinámicamente
+let TOKEN = "";
+
+const URL = "http://localhost:8081/matricula/api/v1.0/estudiantes";
+
+// Función para establecer el token
+export const setToken = (token) => {
+  TOKEN = token;
+};
+
+// Función para obtener el token actual
+export const getTokenValue = () => {
+  return TOKEN;
+};
+
 const consultarTodos = async () => {
   const data = await axios
-    .get("http://localhost:8081/matricula/api/v1.0/estudiantes")
+    .get(`${URL}`, { headers: { Authorization: `Bearer ${TOKEN}` } })
     .then((r) => r.data);
   console.log(data);
 
@@ -10,30 +25,35 @@ const consultarTodos = async () => {
 };
 const consultarPorId = async (id) => {
   const data = await axios
-    .get(`http://localhost:8081/matricula/api/v1.0/estudiantes/${id}`)
+    .get(`${URL}/${id}`, { headers: { Authorization: `Bearer ${TOKEN}` } })
     .then((r) => r.data);
   console.log(data);
   return data;
 };
 const guardar = async (body) => {
-  console.log('Datos a enviar:', body);
+  console.log("Datos a enviar:", body);
+
   const data = await axios
-    .post("http://localhost:8081/matricula/api/v1.0/estudiantes", body)
+    .post(`${URL}`, body, { headers: { Authorization: `Bearer ${TOKEN}` } })
     .then((r) => r.data);
-  console.log('Respuesta del servidor:', data);
+  console.log("Respuesta del servidor:", data);
   return data;
 };
 
 const actualizar = async (id, body) => {
   const data = await axios
-    .put(`http://localhost:8081/matricula/api/v1.0/estudiantes/${id}`, body)
+    .put(`${URL}/${id}`, body, {
+      headers: { Authorization: `Bearer ${TOKEN}` },
+    })
     .then((r) => r.data);
   console.log(data);
   return data;
 };
 const actualizarParcial = async (id, body) => {
   const data = await axios
-    .patch(`http://localhost:8081/matricula/api/v1.0/estudiantes/${id}`, body)
+    .patch(`${URL}/${id}`, body, {
+      headers: { Authorization: `Bearer ${TOKEN}` },
+    })
     .then((r) => r.data);
   console.log(data);
   return data;
@@ -41,7 +61,7 @@ const actualizarParcial = async (id, body) => {
 
 const borrar = async (id) => {
   await axios
-    .delete(`http://localhost:8081/matricula/api/v1.0/estudiantes/${id}`)
+    .delete(`${URL}/${id}`, { headers: { Authorization: `Bearer ${TOKEN}` } })
     .then((r) => r.data);
   console.log(`Estudiante con id ${id} borrado`);
 };

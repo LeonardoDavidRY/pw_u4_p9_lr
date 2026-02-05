@@ -10,7 +10,7 @@
   <router-view/>
 </template>
 
-<style>
+<style scoped>
 body {
   background-color: #9ee2dc;
   margin: 0;

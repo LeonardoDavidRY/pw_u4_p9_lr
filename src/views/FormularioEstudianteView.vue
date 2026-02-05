@@ -1,16 +1,44 @@
 <template>
   <div class="formulario-estudiante-view">
-    <FormularioEstudiante />
+    <div v-if="cargando" class="loading-message">
+      Autenticando...
+    </div>
+    <div v-else-if="error" class="error-message">
+      {{ error }}
+    </div>
+    <FormularioEstudiante v-else />
   </div>
 </template>
 
 <script>
 import FormularioEstudiante from '@/components/FormularioEstudiante.vue';
+import { getToken } from "@/clients/AuthorizationClient";
+import { setToken } from "@/clients/MatriculaClient";
 
 export default {
   name: 'FormularioEstudianteView',
   components: {
     FormularioEstudiante
+  },
+  data() {
+    return {
+      cargando: true,
+      error: null
+    };
+  },
+  async mounted() {
+    try {
+
+      const tokenData = await getToken("leo", "1234");
+      console.log("Token obtenido:", tokenData);
+      
+      setToken(tokenData.accessToken);
+      this.cargando = false;
+    } catch (error) {
+      console.error("Error al obtener el token:", error);
+      this.error = "Error de autenticación. Por favor, verifica las credenciales.";
+      this.cargando = false;
+    }
   }
 };
 </script>
@@ -20,5 +48,23 @@ export default {
   padding: 20px;
   min-height: 100vh;
   background-color: #9ee2dc;
+}
+
+.loading-message, .error-message {
+  padding: 20px;
+  margin: 20px;
+  text-align: center;
+  font-size: 18px;
+}
+
+.loading-message {
+  color: #2196F3;
+}
+
+.error-message {
+  color: #f44336;
+  background-color: #ffebee;
+  border: 1px solid #f44336;
+  border-radius: 4px;
 }
 </style>
