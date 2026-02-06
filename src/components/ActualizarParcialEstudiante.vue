@@ -18,7 +18,7 @@
       {{ mensajeError }}
     </div>
 
-    <form v-if="!cargando" @submit.prevent="actualizarParcialEstudiante" class="formulario">
+    <div v-if="!cargando" class="formulario">
       <div class="form-grupo">
         <label for="id">ID:</label>
         <input 
@@ -88,14 +88,14 @@
       </div>
 
       <div class="botones-grupo">
-        <button type="submit" class="btn-actualizar-parcial" :disabled="actualizando">
+        <button @click="actualizarParcialEstudiante" class="btn-actualizar-parcial" :disabled="actualizando">
           {{ actualizando ? 'Actualizando...' : 'Actualizar Parcial' }}
         </button>
-        <button type="button" @click="volver" class="btn-cancelar">
+        <button @click="volver" class="btn-cancelar">
           Cancelar
         </button>
       </div>
-    </form>
+    </div>
   </div>
 </template>
 

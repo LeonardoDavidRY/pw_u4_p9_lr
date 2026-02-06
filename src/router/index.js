@@ -97,7 +97,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   if (to.meta.requiereAutorizacion) {
     /* Le envio a una pagina de login*/
-    const estaAutenticado = localStorage.getItem("estaAutenticado");
+    const estaAutenticado = localStorage.getItem("estaAutenticado") === "true";
     if(!estaAutenticado){
       console.log("No Autenticado - Redirigiendo al Login");
       next({ name: "login" });

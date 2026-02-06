@@ -17,7 +17,7 @@
       {{ mensajeError }}
     </div>
 
-    <form v-if="!cargando" @submit.prevent="actualizarEstudiante" class="formulario">
+    <div v-if="!cargando" class="formulario">
       <div class="form-grupo">
         <label for="id">ID:</label>
         <input 
@@ -35,7 +35,6 @@
           type="text" 
           id="nombre" 
           v-model="estudiante.nombre" 
-          required
           placeholder="Ingrese el nombre"
         />
       </div>
@@ -46,7 +45,6 @@
           type="text" 
           id="apellido" 
           v-model="estudiante.apellido" 
-          required
           placeholder="Ingrese el apellido"
         />
       </div>
@@ -57,7 +55,6 @@
           type="date" 
           id="fechaNacimiento" 
           v-model="estudiante.fechaNacimiento" 
-          required
         />
       </div>
 
@@ -67,7 +64,6 @@
           type="text" 
           id="provincia" 
           v-model="estudiante.provincia" 
-          required
           placeholder="Ingrese la provincia"
         />
       </div>
@@ -77,7 +73,6 @@
         <select 
           id="genero" 
           v-model="estudiante.genero" 
-          required
         >
           <option value="">Seleccione un género</option>
           <option value="Masculino">Masculino</option>
@@ -87,14 +82,14 @@
       </div>
 
       <div class="botones-grupo">
-        <button type="submit" class="btn-actualizar" :disabled="actualizando">
+        <button @click="actualizarEstudiante" class="btn-actualizar" :disabled="actualizando">
           {{ actualizando ? 'Actualizando...' : 'Actualizar' }}
         </button>
-        <button type="button" @click="volver" class="btn-cancelar">
+        <button @click="volver" class="btn-cancelar">
           Cancelar
         </button>
       </div>
-    </form>
+    </div>
   </div>
 </template>
 

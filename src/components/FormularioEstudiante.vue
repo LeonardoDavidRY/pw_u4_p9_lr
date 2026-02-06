@@ -12,14 +12,13 @@
       {{ mensajeError }}
     </div>
 
-    <form @submit.prevent="guardarEstudiante" class="formulario">
+    <div class="formulario">
       <div class="form-grupo">
         <label for="nombre">Nombre:</label>
         <input 
           type="text" 
           id="nombre" 
           v-model="estudiante.nombre" 
-          required
           placeholder="Ingrese el nombre"
         />
       </div>
@@ -30,7 +29,6 @@
           type="text" 
           id="apellido" 
           v-model="estudiante.apellido" 
-          required
           placeholder="Ingrese el apellido"
         />
       </div>
@@ -41,7 +39,6 @@
           type="date" 
           id="fechaNacimiento" 
           v-model="estudiante.fechaNacimiento" 
-          required
         />
       </div>
 
@@ -51,7 +48,6 @@
           type="text" 
           id="provincia" 
           v-model="estudiante.provincia" 
-          required
           placeholder="Ingrese la provincia"
         />
       </div>
@@ -61,7 +57,6 @@
         <select 
           id="genero" 
           v-model="estudiante.genero" 
-          required
         >
           <option value="">Seleccione un género</option>
           <option value="Masculino">Masculino</option>
@@ -71,14 +66,14 @@
       </div>
 
       <div class="botones-grupo">
-        <button type="submit" class="btn-guardar" :disabled="guardando">
+        <button @click="guardarEstudiante" class="btn-guardar" :disabled="guardando">
           {{ guardando ? 'Guardando...' : 'Guardar Estudiante' }}
         </button>
-        <button type="button" @click="limpiarFormulario" class="btn-limpiar">
+        <button @click="limpiarFormulario" class="btn-limpiar">
           Limpiar
         </button>
       </div>
-    </form>
+    </div>
   </div>
 </template>
 
